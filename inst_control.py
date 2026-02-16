@@ -12,10 +12,10 @@ def menu():
     print("1. List Instruments")
     print("2. Select Instrument")
     print("3. Read Instrument Once")
-    print("4. Multiple Reads with Plot")
+    print("4. Multiple Reads Plot Results")
     print("5. Send Command to Instrument")
     print("6. Query Instrument")
-    print("7. Multiple Queries with Plot")
+    print("7. Multiple Queries Plot Results")
     print("8. Exit")
     return input("Choose an option: ")
 
@@ -32,7 +32,7 @@ def select_instrument():
 
 def read_once(instrument):
     try:
-        response = instrument.query("*IDN?")
+        response = instrument.query("")
         print(f"Response from instrument: {response.strip()}")
     except pyvisa.VisaIOError as e:
         print(f"Error reading from the instrument: {e}")
@@ -45,7 +45,7 @@ def multiple_reads(instrument):
     with tqdm(total=count, desc="Reading", unit="read") as pbar:
         for i in range(count):
             try:
-                reading = instrument.query("*IDN?")
+                reading = instrument.query("")
                 readings.append(float(reading.strip()))
                 if i < count - 1:
                     time.sleep(delay)
